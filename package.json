@@ -1,0 +1,35 @@
+{
+  "name": "mx.utxj.ti.awos.bienesraices",
+  "version": "1.0.0",
+  "description": "Proyecto de clase para Unidad 2, de la asignatura AWOS utilizamos Node.js",
+  "main": "index.js",
+  "scripts": {
+    "Saluda": "index.js",
+    "server": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Marcos-Jesus-Rios-Duran/BienesRaices_230733.git"
+  },
+  "keywords": [
+    "MVC",
+    "Sequelize",
+    "MySQL",
+    "Tailwind",
+    "NodeJS",
+    "Mailtrap",
+    "JWT"
+  ],
+  "author": "Marcos Jesús Ríos Duran",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Marcos-Jesus-Rios-Duran/BienesRaices_230733/issues"
+  },
+  "homepage": "https://github.com/Marcos-Jesus-Rios-Duran/BienesRaices_230733#readme",
+  "dependencies": {
+    "express": "^4.21.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}

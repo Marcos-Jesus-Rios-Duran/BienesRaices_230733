@@ -9,7 +9,7 @@ Para poder demostrar y  aprender la creacion y consumo de interfaces de programa
 |no.|Fecha | Descripción |Potenciador|Estatus|
 |--|--|--|--|--|
 |8.|17/10/2024|Nuevo Repositorio del Proyecto Implementado .gitignore |1| 💙💖Activa|
-|9|17/10/2024||Indifinida|💙💖Activa|
+|9.|17/10/2024||11|💙💖Activa|
 ***
 ### Autor
 Creado por : **Marcos Jesús Rios Duran** /[@Marcos-Jesús-Ríos-Durán](https://github.com/Marcos-Jesus-Rios-Duran)

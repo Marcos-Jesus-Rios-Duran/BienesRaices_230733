@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Proyecto de clase para Unidad 2, de la asignatura AWOS utilizamos Node.js",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "Saluda": "index.js",
     "server": "nodemon index.js"

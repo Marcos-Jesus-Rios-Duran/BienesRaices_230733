@@ -1,5 +1,5 @@
 import express from 'express' // Importar la librería para crear un servidor web
-
+import generalRouter from './Router/generalRouter'
 // Instanciar nuestra aplicación web
 const app = express();
 
@@ -19,3 +19,7 @@ app.get("/QuienSoy", function(req, res){
             "grupo": "B",
             "asignatura": "Aplicaciones Web Orientada a Servicios (AWOS)"
     });})
+
+
+app.use('/',generalRouter);
+app.use('/users', userRoueters);

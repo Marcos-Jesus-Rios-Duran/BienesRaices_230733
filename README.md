@@ -8,8 +8,8 @@ Para poder demostrar y  aprender la creacion y consumo de interfaces de programa
 ## Historial de Practicas
 |no.|Fecha | Descripción |Potenciador|Estatus|
 |--|--|--|--|--|
-|8.|17/10/2024|Nuevo Repositorio del Proyecto Implementado .gitignore |1| 💙💖Activa|
-|9.|17/10/2024||11|💙💖Activa|
+|8.|17/10/2024|Nuevo Repositorio del Proyecto Implementado .gitignore |1| ✅Finalizada|
+|9.|17/10/2024|Creación de una Aplicación Web usando Express|12|💙💖Activa|
 ***
 ### Autor
 Creado por : **Marcos Jesús Rios Duran** /[@Marcos-Jesús-Ríos-Durán](https://github.com/Marcos-Jesus-Rios-Duran)

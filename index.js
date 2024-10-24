@@ -1,5 +1,7 @@
 import express from 'express' // Importar la librería para crear un servidor web
-import generalRouter from './Router/generalRouter'
+import generalRouter from './Router/generalRouter.js';
+
+import userRoueters from './Router/userRouters.js'
 // Instanciar nuestra aplicación web
 const app = express();
 

@@ -22,6 +22,8 @@ app.get("/QuienSoy", function(req, res){
             "asignatura": "Aplicaciones Web Orientada a Servicios (AWOS)"
     });})
 
-
+app.set('view engine','pug');
+app.set('views', './views');
+app.use(express.static('public'));
+app.use('/auth',userRoueters);
 app.use('/',generalRouter);
-app.use('/users', userRoueters);

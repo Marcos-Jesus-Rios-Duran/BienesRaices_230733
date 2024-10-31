@@ -3,8 +3,10 @@ import express from 'express';
 const router = express.Router();
 
 
-router.get("/", function(req, res) {
-    res.send("Hola desde la Web, en NodeJS")
+router.get("/log", function(req, res) {
+    res.render('auth/login',{
+        authenticated:true
+    })
 })
 
 router.get("/quienEres", function(req, res) {

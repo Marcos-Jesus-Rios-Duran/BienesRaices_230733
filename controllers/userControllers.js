@@ -1,17 +1,16 @@
-import { request, response } from "express";
+const formularioLogin = (request, response) =>  {
+    response.render('auth/login', {
+        
+    })};
 
-const formularioLogin = (request,response)=>{
-    response.render('auth/login',{
+const formularioRegister = (request, response) =>  {
+        response.render('auth/register', {
+            
+        })};
 
-    })
-}
-const formularioRegistrer = (a,b)=>{
-    response.render('auth/registrer',{
-
-    })
-}
-const formularioPasswordRecovery=(a,b)=>{
-    response.render('auth/passwordRecovery',{
-
-    })}
-    
+const formularioPasswordRecovery = (request, response) =>  {
+    response.render('auth/passwordRecovery', {
+                
+     })};
+     
+export {formularioLogin, formularioRegister, formularioPasswordRecovery}

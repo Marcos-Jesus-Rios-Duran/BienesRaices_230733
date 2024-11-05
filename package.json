@@ -29,6 +29,7 @@
   },
   "homepage": "https://github.com/Marcos-Jesus-Rios-Duran/BienesRaices_230733#readme",
   "dependencies": {
+    "etag": "^1.8.1",
     "express": "^4.21.1",
     "pug": "^3.0.3"
   },

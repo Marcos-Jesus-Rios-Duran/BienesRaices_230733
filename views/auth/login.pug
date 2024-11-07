@@ -1,17 +1,22 @@
 extends ../layout/index
 
-block contenido
-  .py-10 
-    h1.text-4xl.my-10.font-extrabold.text-center Bienes 
-        span.font-normal Raices
-    h2.text-2xl.font-extrabold.text-center= page
-    .mt-8.mx-auto.max-w-md.items-center
-        .bg-white.py-8.px-4.shadow
-            form.space-y-5
-                div 
-                    label.block.text-sm.uppercase.text-gray-500.mb-3.font-bold(for="email") Email de Usuario
-                    input#email.w-full.px-3.py-3.border.border-blue-700.rounded-md.placeholder-gray-500(placeholder="Ingresa tu email" type="email" name="email")
-                div 
-                    label.block.text-sm.uppercase.text-gray-500.mb-3.font-bold(for="password") Contraseña
-                    input#password.w-full.px-3.py-3.border.border-blue-700.rounded-md.placeholder-gray-500(placeholder="Ingresa tu contraseña" type="password" name="password")
-                input(class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 cursor-pointer" type="submit" value="Iniciar Secion")
+block contenido 
+    .py-10 
+        h1.text-center.text-4xl.my-10.font-extrabold.text-indigo-600 Bienes
+            span.font-normal.text-black Raíces
+        h2.text-center.font-extrabold.text-2xl= page
+
+        .mt-8.mx-auto.max-w-md
+            .bg-white.py-8.px-4.shadow
+                form(action="").space-y-5.px-6
+                    div
+                        label.block.text-sm.uppercase.text-gray-600.mb-2.font-nold Correo Electrónico: 
+                        input#email.w-full.px-3.py-2.border.border-gray-300.rounded-xl.placeholder.gray-400(type="email" placeholder="ej: usuario@dominio.com" name="correo_usuario")
+                    div
+                        label.block.text-sm.uppercase.text-gray-600.mb-2.font-nold Contraseña: 
+                        input#password.w-full.px-3.py-2.border.border-gray-300.rounded-xl.placeholder.gray-400(type="password" placeholder="mínimo de 8 carácteres" name="pass_usuario")
+                    
+                    .flex.items-center.justify-between 
+                        a.text-gray-500.text-xs(href="/auth/createAccount" class="hover:underline hover:decoration-2 hover:decoration-red-600") ¿Aún no tienes cuenta?, registrate
+                        a.text-gray-500.text-xs(href="/auth/passwordRecovery" class="hover:underline decoration-2 hover:decoration-red-600") Olvide mi contraseña...
+                    input(class="w-full bg-indigo-600 hover:bg-red-600 text-white font-bold py-3 cursor-pointer" type="submit" value="Ingresar")

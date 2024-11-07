@@ -21,4 +21,8 @@ block contenido
                 div 
                     label.block.text-sm.uppercase.text-gray-500.mb-3.font-bold(for="r_password") Repetir Contraseña
                     input#r_password.w-full.px-3.py-3.border.border-blue-700.rounded-md.placeholder-gray-500(placeholder="Repite tu contraseña" type="password" name="r_password")
-                input(class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 cursor-pointer" type="submit" value="Crear Cuenta")
+                .flex.items-center.justify-between 
+                        a.text-gray-500.text-xs(href="/auth/login" class="hover:underline hover:decoration-2 hover:decoration-red-600") ¿Ya tienes cuenta? Inicia Sesión
+                        a.text-gray-500.text-xs(href="/auth/passwordRecovery" class="hover:underline decoration-2 hover:decoration-red-600") Olvide mi contraseña... 
+
+                input(class="w-full bg-indigo-600 hover:bg-red-600 text-white font-bold py-3 cursor-pointer" type="submit" value="Crear Cuenta")

@@ -610,6 +610,10 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
+.bg-rosa {
+  --tw-bg-opacity: 1;
+  background-color: rgb(237 107 134 / var(--tw-bg-opacity));
+}
 .px-2 {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
@@ -713,11 +717,21 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(220 38 38 / var(--tw-bg-opacity));
 }
+.hover\:bg-verde:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(100 142 127 / var(--tw-bg-opacity));
+}
 .hover\:underline:hover {
   text-decoration-line: underline;
 }
 .hover\:decoration-red-600:hover {
   text-decoration-color: #dc2626;
+}
+.hover\:decoration-rosa:hover {
+  text-decoration-color: #ED6B86;
+}
+.hover\:decoration-azul:hover {
+  text-decoration-color: #6F9CEB;
 }
 .hover\:decoration-2:hover {
   text-decoration-thickness: 2px;

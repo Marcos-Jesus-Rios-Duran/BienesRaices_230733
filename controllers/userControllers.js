@@ -14,4 +14,8 @@ response.render('auth/passwordRecovery', {
         page : "Recuperación de Contraseña"
  })};
  
-export {formularioLogin, formularioRegister, formularioPasswordRecovery}
+ const registrer= async(req,res)=>{
+    const usuer=await Usuario.create(req.body);
+    res.json(usuario);
+ }
+export {formularioLogin, formularioRegister, formularioPasswordRecovery,registrer}

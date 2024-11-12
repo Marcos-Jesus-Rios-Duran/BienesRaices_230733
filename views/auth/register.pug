@@ -8,7 +8,7 @@ block contenido
     h2.text-2xl.font-extrabold.text-center= page
     .mt-8.mx-auto.max-w-md.items-center
         .bg-white.py-8.px-4.shadow
-            form.space-y-5
+            form.space-y-5(method="POST" action="/auth/createAccount")
                 div 
                     label.block.text-sm.uppercase.text-gray-500.mb-3.font-bold(for="name") Tu nombre 
                     input#name.w-full.px-3.py-3.border.border-blue-700.rounded-md.placeholder-gray-500(placeholder="Ingresa tu nombre" type="text" name="name")

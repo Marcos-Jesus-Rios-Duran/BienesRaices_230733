@@ -7,10 +7,12 @@
 import express from 'express';
 import generalRoutes from './Router/generalRouter.js'
 import userRoutes from './Router/userRouters.js'
-import db from './config/db.js'
+import db from './db/config.js'
 
 
 const app = express()
+//lectura de datos de los formularios 
+app.use(express.urlencoded({extended:true }))
 //conexion a la base de datos 
 try{
     await db.authenticate();

@@ -1,5 +1,5 @@
 import express from 'express';
-import { formularioLogin, formularioRegister, formularioPasswordRecovery } from '../controllers/userControllers.js';
+import { formularioLogin, formularioRegister, formularioPasswordRecovery,registrer } from '../controllers/userControllers.js';
 
 const router= express.Router();
 
@@ -53,5 +53,6 @@ router.delete("/deleteUser/:email", function(request, response){
 router.get("/login", formularioLogin /*middleware*/ );
 router.get("/createAccount", formularioRegister);
 router.get("/passwordRecovery", formularioPasswordRecovery);
+router.post("/createAccount", registrer);
 
 export default router;

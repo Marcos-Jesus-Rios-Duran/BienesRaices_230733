@@ -5,8 +5,8 @@
 
 
 import express from 'express';
-import generalRoutes from './Router/generalRouter.js'
-import userRoutes from './Router/userRouters.js'
+import generalRoutes from './routes/generalRoutes.js'
+import userRoutes from './routes/userRoutes.js'
 import db from './db/config.js'
 
 const app = express()
@@ -44,3 +44,4 @@ app.listen(port, ()=>{
 // Routing - Enrutamiento para peticiones
 app.use('/',generalRoutes);
 app.use('/auth',userRoutes);
+

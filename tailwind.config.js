@@ -1,5 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  content: ['./views/**/*.pug'], // Escanea los archivos .pug en la carpeta views
+  theme: {
+/** @type {import('tailwindcss').Config} */
+export default {
   content: ['./views/**/*.pug'],
   theme: {
     extend: {},
@@ -9,6 +13,11 @@ export default {
       'greenish': '#6A8E7F',
       'light_blue': '#6F9CEB',
       'pink': '#ED6B86'
+    },
+  },
+  plugins: [],
+}
+
     },
   },
   plugins: [],

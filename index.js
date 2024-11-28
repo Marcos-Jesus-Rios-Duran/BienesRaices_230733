@@ -1,64 +1,55 @@
+//globales
 import express from 'express';
-import generalRoutes from './Routes/generalRoutes.js'
-import userRoutes from './routes/userRoutes.js'
-import db from './db/config.js'
-import dotenv from 'dotenv'
+import cookieParser from 'cookie-parser';
+import csrf from 'csurf';
+//librerias creadas por nosotros
+import generalRoutes from './routes/generalRoutes.js';
+import userRoutes from './routes/userRoutes.js';
+import db from './db/config.js';
+import dotenv from 'dotenv';
+dotenv.config({ path: '.env' });
 
-dotenv.config({path: '.env'})
+// Conexión a la base de datos
+const connectDB = async () => {
+    try {
+        await db.authenticate();  // Verifica las credenciales del usuario
+        db.sync(); // Sincroniza las tablas con los modelos
+        console.log("Conexión correcta a la Base de Datos");
+    } catch (error) {
+        console.log(error);
+    }
+};
 
+connectDB(); // Llamar a la función asíncrona para conectar a la base de datos
 
-//conexión a la base de datos.
-try{
-    await db.authenticate();  //verifica las credenciales del usuario
-    db.sync(); //sincronizo las tablas con los modelos
-    console.log("Conexión correcta a la Base de Datos");
+// Instanciar nuestra aplicación web
+const app = express();
 
-}catch(error){
-
-    console.log(error);
-}
-
-
-//const express=require(`express`);//Importar la libreria para crear un servidor web
-
-//Ibstanciar nuestra aplicacion web
-const app=express()
-
-//Habilitar la lectura de datos de formularios
+// Habilitar la lectura de datos de formularios
 app.use(express.urlencoded({ extended: true }));
 
+// Habilitar Pug
+app.set('view engine', 'pug');
+app.set('views', './views');
 
- 
-//Habilitar Pug 
-app.set('view engine', 'pug')
-app.set('views', './views')
-
-//Definir la carpeta pública de recursos estáticos (assets)
+// Definir la carpeta pública de recursos estáticos (assets)
 app.use(express.static('./public'));
 
+// Middleware para manejar cookies y CSRF
+app.use(cookieParser());
+app.use(csrf({ cookie: true }));
 
-// configuramos nuestro servidor web
-const port= process.env.BACKEND_PORT; 
-app.listen(port, ()=>{
-    console.log(`La aplicación ha iniciado al puerto: ${port}`);
-})
+app.use((req, res, next) => {
+    res.locals.csrfToken = req.csrfToken();
+    next();
+});
 
-//Probamos las rutas para poder presentar mensajes al usuario a través del navegador
-/*app.get("/", function(req,res){
-    res.send("Hola mundo desde Node, a través del navegador")
-})
+// Configuramos nuestro servidor web
+const port = process.env.BACKEND_PORT || 3000;
+app.listen(port, () => {
+    console.log(`La aplicación ha iniciado en el puerto: ${port}`);
+});
 
-app.get("/QuienSoy", function(req, res){
-    res.json({"estudiante": "Esther Gonzalez Peralta",
-        "carrera": "TI DSM",
-        "grado": "4°",
-        "grupo":"B",
-        "asignatura": "Aplicaciones web orientada a servicios"
-
-    })
-})*/
-
-//Routing - Enrutamiento
-app.use('/',generalRoutes);
-///app.use('/usuario/',userRoutes);
-app.use('/auth/',userRoutes);
+// Routing - Enrutamiento
+app.use('/', generalRoutes);
+app.use('/auth/', userRoutes);

@@ -8,6 +8,7 @@ const formularioLogin = (req, res) => {
     res.render('auth/login', {
         autenticado: false,
         page: 'Ingresa a la plataforma',
+        csrfToken: req.csrfToken(),
     });
 };
 
@@ -15,6 +16,7 @@ const formularioLogin = (req, res) => {
 const formularioRegister = (req, res) => {
     res.render('auth/register', {
         page: 'Crea una nueva cuenta',
+        csrfToken: req.csrfToken(),
     });
 };
 
@@ -39,6 +41,7 @@ const createNewUser = async (req, res) => {
                 name: req.body.nombre_usuario,
                 email: req.body.correo_usuario,
             },
+            csrfToken: req.csrfToken(), // Asegurarse de enviar el token CSRF nuevamente
         });
     }
 
@@ -52,6 +55,7 @@ const createNewUser = async (req, res) => {
             page: 'Error al intentar crear la cuenta de Usuario',
             errors: [{ msg: `El usuario ${email} ya está registrado.` }],
             user: { name },
+            csrfToken: req.csrfToken(), // Asegurarse de enviar el token CSRF nuevamente
         });
     }
 
@@ -116,6 +120,43 @@ const confirm = async (req, res) => {
 const formularioPasswordRecovery = (req, res) => {
     res.render('auth/passwordRecovery', {
         page: 'Recupera tu contraseña',
+        csrfToken: req.csrfToken(),
+    });
+};
+
+// Recuperar contraseña
+const resetpassword = async (req, res) => {
+    // Validar el correo electrónico
+    await check('correo_usuario').notEmpty().withMessage('El correo electrónico es un campo obligatorio')
+        .isEmail().withMessage('No es un email correcto').run(req);
+
+    const result = validationResult(req);
+
+    // Si hay errores, regresar al formulario con los mensajes
+    if (!result.isEmpty()) {
+        return res.render('auth/passwordRecovery', {
+            page: 'Error al intentar recuperar la contraseña',
+            errors: result.array(),
+            email: req.body.correo_usuario,
+            csrfToken: req.csrfToken(), // Asegurarse de enviar el token CSRF nuevamente
+        });
+    }
+
+    // Verificar que el usuario exista
+    const { correo_usuario: email } = req.body;
+    const user = await User.findOne({ where: { email } });
+    if (!user) {
+        return res.render('auth/passwordRecovery', {
+            page: 'Error al intentar recuperar la contraseña',
+            errors: [{ msg: `El usuario ${email} no está registrado.` }],
+            csrfToken: req.csrfToken(), // Asegurarse de enviar el token CSRF nuevamente
+        });
+    }
+
+    // Aquí puedes añadir la lógica para enviar un correo de recuperación de contraseña o mostrar un mensaje de éxito
+    res.render('templates/message', {
+        page: 'Recuperación de contraseña',
+        message: `Si el usuario ${email} está registrado, recibirás un email con instrucciones para recuperar tu contraseña.`,
     });
 };
 
@@ -125,4 +166,5 @@ export {
     createNewUser,
     confirm,
     formularioPasswordRecovery,
+    resetpassword,
 };

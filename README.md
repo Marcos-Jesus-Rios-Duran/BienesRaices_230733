@@ -8,14 +8,15 @@ Para poder demostrar y  aprender la creacion y consumo de interfaces de programa
 ## Historial de Prácticas
 
 ## Historial de Prácticas
-|No.|Fecha|Descripción|Potenciador|Estatus|
+
+|No.|Fecha |Descripción|Potenciador|Estatus|
 |--|--|--|--|--|
-|8.|17/10/2024|Nuevo repositorio del Proyecto Implementando .gitignore|1|✅Finalizada|
-|9.|22/10/2024|Creación de una aplicación web usando Express|11|✅Finalizada|
-|10.|24/10/2024|Operaciones básicas de un API, a travéz de los verbos HTTP|12|✅Finalizada|
-|11.|05/11/2024|Configuración de hojas de estilo utilizando Tailwind|13|✅Finalizada|
-|12.|-----|Implementación de validación en formulario y duplicidad en base de datos|------|✅Finalizada|
-✅Finalizada
+|8.|17/10/2024|Nuevo Repositorio del Proyecto implementando .gitignore|1|✅Finalizada|
+|9.|22/10/2024|Creación de una Aplicación Web usando Express| 12|✅Finalizada|
+|10.|23/10/2024|Operaciones Básicas de un API a través de los verbos HTTP| 12|✅Finalizada|
+|11.|05/11/2024|Implementación de las Pantallas de Registro, Logeo y Recuperación de Contraseña|13|✅Finalizada|
+|12.|20/11/2024|Implementación de la funcionalidad del registro de Cuentas de Usuario|30|✅Finalizada|
+|13.|28/11/2024|Implementación de recupueración de contraseñas|Pendiente|⭐Activa|
 ***
 ### Autor
 Creado por : **Marcos Jesús Rios Duran** /[@Marcos-Jesús-Ríos-Durán](https://github.com/Marcos-Jesus-Rios-Duran)

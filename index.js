@@ -1,55 +1,56 @@
-//globales
+// Ejemplo de activación de HOT RELOAD
+/*console.log("Hola desde NodeJS, esto esta en hot reload")*/
+
+/*const express = require('express'); */
+//librerias globales del proyecto
 import express from 'express';
+import csrf from 'csurf'
 import cookieParser from 'cookie-parser';
-import csrf from 'csurf';
-//librerias creadas por nosotros
-import generalRoutes from './routes/generalRoutes.js';
-import userRoutes from './routes/userRoutes.js';
-import db from './db/config.js';
-import dotenv from 'dotenv';
-dotenv.config({ path: '.env' });
+// librerias específicas del proyecto
+import generalRoutes from './routes/generalRoutes.js'
+import userRoutes from './routes/userRoutes.js'
+import db from './db/config.js'
+import dotenv from 'dotenv'
 
-// Conexión a la base de datos
-const connectDB = async () => {
-    try {
-        await db.authenticate();  // Verifica las credenciales del usuario
-        db.sync(); // Sincroniza las tablas con los modelos
-        console.log("Conexión correcta a la Base de Datos");
-    } catch (error) {
-        console.log(error);
-    }
-};
+dotenv.config({path: '.env'})
 
-connectDB(); // Llamar a la función asíncrona para conectar a la base de datos
+const app = express()
 
-// Instanciar nuestra aplicación web
-const app = express();
 
-// Habilitar la lectura de datos de formularios
-app.use(express.urlencoded({ extended: true }));
+//Habilitamos la lectura de datos desde formularios.
+app.use(express.urlencoded({encoded:true}))
 
-// Habilitar Pug
-app.set('view engine', 'pug');
-app.set('views', './views');
+// Habilitar Cookie Parser 
+app.use(cookieParser())
 
-// Definir la carpeta pública de recursos estáticos (assets)
+// Habilitar CSRF
+app.use(csrf({cookie: true}))
+
+// Configurar Templeate Engine - PUG
+app.set('view engine', 'pug')
+app.set('views','./views')
+
+//Definir la carpeta ública de recursos estáticos (assets)
 app.use(express.static('./public'));
 
-// Middleware para manejar cookies y CSRF
-app.use(cookieParser());
-app.use(csrf({ cookie: true }));
-
-app.use((req, res, next) => {
-    res.locals.csrfToken = req.csrfToken();
-    next();
-});
+//Conexión a la BD
+try
+{
+  await db.authenticate();  // Verifico las credenciales del usuario
+  db.sync();  // Sincronizo las tablas con los modelos
+  console.log("Conexión exitosa a la base de datos.")
+}
+catch(error)
+{
+    console.log(error)
+}
 
 // Configuramos nuestro servidor web
-const port = process.env.BACKEND_PORT || 3000;
-app.listen(port, () => {
-    console.log(`La aplicación ha iniciado en el puerto: ${port}`);
-});
+const port = process.env.BACKEND_PORT;
+app.listen(port, ()=>{
+    console.log(`La aplicación ha iniciado en el puerto: ${port}` );
+})
 
-// Routing - Enrutamiento
-app.use('/', generalRoutes);
-app.use('/auth/', userRoutes);
+// Routing - Enrutamiento para peticiones
+app.use('/',generalRoutes);
+app.use('/auth',userRoutes);

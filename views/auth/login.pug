@@ -14,21 +14,14 @@ block contenido
         .mt-8.mx-auto.max-w-md 
             .bg-white.py-8.px-4.shadow
                 form(method="POST" action='/auth/newUser' noValidate).space-y-5.px-6
-                    div 
-                        label.block.text-sm.uppercase.text-gray-600.mb-2.font-bold Nombre completo:
-                        input#name.w-full.px-3.py-2.border.border-gray-300.rounded-md.placeholder-gray-400(type="text" placeholder="Ej. Marcos Jesus Rios Duran" name="nombre_usuario")
                     div
                         label.block.text-sm.uppercase.text-gray-600.mb-2.font-bold Correo electrónico:
                         input#email.w-full.px-3.py-2.border.border-gray-300.rounded-md.placeholder-gray-400(type="email" placeholder="Ej: marcos@gmail.com" name="correo_usuario")
                     div
-                        label.block.text-sm.uppercase.text-gray-600.mb-2.font-bold Contraseña:
-                        input#password.w-full.px-3.py-2.border.border-gray-300.rounded-md.placeholder-gray-400(type="password" placeholder="Mínimo de 8 caracteres" name="pass_usuario")
-                    div
-                        label.block.text-sm.uppercase.text-gray-600.mb-2.font-bold Confirmación contraseña:
-                        input#password-confirm.w-full.px-3.py-2.border.border-gray-300.rounded-md.placeholder-gray-400(type="password" placeholder="Mínimo de 8 caracteres" name="pass2_usuario")
-
+                        label.block.text-sm.uppercase.text-gray-600.mb-2.font-nold Contraseña: 
+                        input#password.w-full.px-3.py-2.border.border-gray-300.rounded-xl.placeholder.gray-400(type="password" placeholder="mínimo de 8 carácteres" name="pass_usuario")
                     div.flex.items-center.justify-between
-                        a.text-light_blue.text-xs(href="/auth/login" class="hover:underline decoration-2 hover:decoration-red-500") ¿Ya tienes cuenta? Inicia sesión
+                        a.text-light_blue.text-xs(href="/auth/createAccount") ¿No tienes cuenta? Crea una
                         a.text-light_blue.text-xs(href="/auth/passwordRecovery" class="hover:underline decoration-2 hover:decoration-red-500") Olvidé mi contraseña
                     
-                    input(class="w-full bg-light_blue hover:bg-greenish text-white font-bold py-3 cursor-pointer" type="submit" value="Crear cuenta")
+                    input(class="w-full bg-light_blue hover:bg-greenish text-white font-bold py-3 cursor-pointer" type="submit" value="Iniciar sesion")

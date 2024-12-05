@@ -187,7 +187,7 @@ const passwordReset = async(request, response) =>{
     response.render('templates/message', {
         csrfToken: request.csrfToken(),
         page: 'Solicitud de actualización de contraseña aceptada',
-        msg: 'Hemos enviado un correo a : <poner el correo aqui>, para la la actualización de tu contraseña.'
+        msg: `Hemos enviado un correo a : ${email}, para la la actualización de tu contraseña.`
     })
 
 
@@ -218,41 +218,53 @@ const verifyTokenPasswordChange =async(request, response)=>{
 }
 
 const updatePassword = async (request, response) => {
-    // Validación de las contraseñas
-    await check('pass_usuario').notEmpty().withMessage("La contraseña es un campo obligatorio.").isLength({ min: 8 }).withMessage("La contraseña debe ser de al menos 8 caracteres.").run(request);
-    await check("pass2_usuario").equals(request.body.pass_usuario).withMessage("La contraseña y su confirmación deben coincidir").run(request);
+
+    const { token } = request.params;
+
+    // Validar que el token existe en la base de datos
+    const userTokenOwner = await User.findOne({ where: { token } });
+
+    if (!userTokenOwner) {
+        return response.render("auth/reset-password", {
+            page: 'Error al intentar crear la Cuenta de Usuario',
+            errors: [{ msg: 'Token inválido o expirado' }],
+            csrfToken: request.csrfToken(),
+            token: token
+        });
+    }
+
+    // Validar campos de contraseñas
+    await check('new_password')
+        .notEmpty().withMessage("La contraseña es un campo obligatorio.")
+        .isLength({ min: 8 }).withMessage("La contraseña debe ser de al menos 8 carácteres.")
+        .run(request);
+
+    await check("confirm_new_password")
+        .equals(request.body.new_password)
+        .withMessage("La contraseña y su confirmación deben coincidir")
+        .run(request);
 
     let result = validationResult(request);
 
     if (!result.isEmpty()) {
-        return response.render('auth/reset-password', {
-            page: 'Restablece tu contraseña',
+        return response.render("auth/reset-password", {
+            page: 'Error al intentar crear la Cuenta de Usuario',
             errors: result.array(),
-            csrfToken: request.csrfToken()
-        });
-    }
-
-    const { token } = request.params;
-    const userTokenOwner = await User.findOne({ where: { token } });
-
-    if (!userTokenOwner) {
-        return response.render('templates/message', {
             csrfToken: request.csrfToken(),
-            page: 'Error',
-            msg: 'El token ha expirado o no existe.'
+            token: token
         });
     }
 
-    // Actualizar la contraseña (sin necesidad de hash porque el hook lo hace)
-    userTokenOwner.password = request.body.pass_usuario;
-    userTokenOwner.token = null;
-
+    // Actualizar la contraseña en la base de datos
+    userTokenOwner.password = request.body.new_password;
+    userTokenOwner.token = null;  // Anular el token
     await userTokenOwner.save();
 
-    response.render('templates/message', {
-        csrfToken: request.csrfToken(),
-        page: 'Contraseña actualizada',
-        msg: 'Tu contraseña ha sido actualizada satisfactoriamente.'
+    // Renderizar la respuesta
+    response.render('auth/accountConfirmed', {
+        page: 'Excelente..! ',
+        msg: 'Tu contraseña ha sido confirmada de manera exitosa.',
+        error: false
     });
 };
 

@@ -17,7 +17,7 @@ const db = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.D
         idle: 10000
     }, 
     operatorAliases: false,
-    timezone: 'America/Mexico_City'  
+    timezone: '-06:00'  
 });
 
 export default db;

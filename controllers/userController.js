@@ -1,14 +1,87 @@
-    import {check, validationResult} from 'express-validator'
-    import User from '../models/User.js'
-    import { generatetId } from '../helpers/tokens.js'
-    import { emailAfterRegister, emailChangePassword } from '../helpers/emails.js' 
+import { check, validationResult } from 'express-validator';
+import User from '../models/User.js';
+import { generatetId, generarJWT } from '../helpers/tokens.js';
+import { emailAfterRegister, emailChangePassword } from '../helpers/emails.js';
+import bcrypt from 'bcrypt';
 
+const formularioLogin = (request, response) => {
+    response.render("auth/login", {
+        page: "Ingresa a la plataforma",
+        csrfToken: request.csrfToken()
+    });
+};
 
-    const formularioLogin = (request, response) =>   {
-        response.render("auth/login", {
-            page : "Ingresa a la plataforma",
-        })
+// Autenticar usuario
+const authenticate = async (req, res) => {
+    // Validación de campos
+    await check('correo_usuario')
+        .notEmpty().withMessage('El correo electrónico es un campo obligatorio')
+        .isEmail().withMessage('Debe ser un correo válido')
+        .run(req);
+    await check('pass_usuario')
+        .notEmpty().withMessage('La contraseña es un campo obligatorio')
+        .run(req);
+
+    const resultado = validationResult(req);
+
+    // Validar errores en los campos
+    if (!resultado.isEmpty()) {
+        return res.render('auth/login', {
+            page: 'Error al intentar iniciar sesión',
+            csrfToken: req.csrfToken(),
+            errors: resultado.array(),
+        });
     }
+
+    const { correo_usuario: email, pass_usuario: password } = req.body;
+
+    try {
+        // Verificar si el usuario existe en la base de datos
+        const user = await User.findOne({ where: { email } });
+        if (!user) {
+            return res.render('auth/login', {
+                page: 'Iniciar Sesión',
+                csrfToken: req.csrfToken(),
+                errors: [{ msg: 'El Usuario No Existe' }],
+            });
+        }
+
+        // Verificar si el usuario está confirmado
+        if (!user.confirmed) {
+            return res.render('auth/login', {
+                page: 'Iniciar Sesión',
+                csrfToken: req.csrfToken(),
+                errors: [{ msg: 'Tu Cuenta no ha sido Confirmada' }],
+            });
+        }
+
+        // Revisar el password
+        const passwordMatch = bcrypt.compareSync(password, user.password);
+        if (!passwordMatch) {
+            return res.render('auth/login', {
+                page: 'Iniciar Sesión',
+                csrfToken: req.csrfToken(),
+                errors: [{ msg: 'La Contraseña es Incorrecta' }],
+            });
+        }
+
+        // Generar el token JWT
+        const token = generarJWT({ id: user.id, nombre: user.name });
+
+        // Almacenar el token en una cookie
+        return res.cookie('_token', token, {
+            httpOnly: true,
+        }).redirect('/myProperties'); // Asegúrate de que esta ruta exista
+    } catch (error) {
+        console.error('Error al autenticar usuario:', error);
+        return res.status(500).render('auth/login', {
+            page: 'Iniciar Sesión',
+            csrfToken: req.csrfToken(),
+            errors: [{ msg: 'Ocurrió un error inesperado. Intenta de nuevo.' }],
+        });
+    }
+};
+
 
     const formularioRegister = (request, response) =>  {
         response.render('auth/register', {
@@ -250,4 +323,6 @@
     };
 
 
-    export {formularioLogin, formularioRegister, formularioPasswordRecovery, createNewUser, confirm, passwordReset, verifyTokenPasswordChange, updatePassword}
+
+    export {formularioLogin, formularioRegister, formularioPasswordRecovery, createNewUser, confirm, passwordReset, verifyTokenPasswordChange, updatePassword,authenticate}
+    

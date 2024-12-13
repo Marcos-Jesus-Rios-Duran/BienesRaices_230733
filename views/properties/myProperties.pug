@@ -1,0 +1,28 @@
+extends ../layout/index
+
+block contenido
+  header.bg-greenish.p-4
+    .container.mx-auto.text-center
+      h1.text-4xl.font-extrabold.text-black.shadow-md Bienes 
+        span.font-normal.text-pink Raíces
+
+  .bg-light_blue
+    .container.mx-auto.py-16
+      h2.text-center.font-extrabold.text-2xl.text-black= page
+
+      // Contenido adicional
+      p.text-center.text-lg.text-gray-700.mt-4 Aquí puedes gestionar y ver tus propiedades.
+
+      // Card con efectos
+      div(class="mt-8 mx-auto max-w-md bg-white rounded-lg shadow-md p-6 transition-transform duration-300 hover:scale-105")
+        h3.text-center.text-xl.font-bold Bienvenido
+        p.text-center.text-gray-500 a la plataforma de gestión de propiedades.
+
+      // Otra card de ejemplo
+      div(class="mt-8 mx-auto max-w-md bg-white rounded-lg shadow-lg p-6 transition-transform duration-300 hover:scale-110 focus:scale-110")
+        h3.text-center.text-xl.font-bold Explora tus opciones
+        p.text-center.text-gray-500 Personaliza y administra tus propiedades fácilmente.
+
+  footer.bg-light_blue.p-4.mt-16
+    .container.mx-auto.text-center
+      p.text-gray-700 &copy; 2024 Bienes Raíces. Todos los derechos reservados.
